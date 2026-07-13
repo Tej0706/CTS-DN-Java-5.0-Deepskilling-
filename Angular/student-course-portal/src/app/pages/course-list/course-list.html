@@ -1,0 +1,41 @@
+<h2>Course List</h2>
+
+<input
+  type="text"
+  placeholder="Search course..."
+  [(ngModel)]="searchTerm"
+  (input)="updateSearch()">
+
+<br><br>
+
+@if (errorMessage) {
+  <p style="color:red">{{ errorMessage }}</p>
+}
+
+@if (isLoading) {
+
+  <p>Loading courses...</p>
+
+} @else {
+
+  @for (course of courses; track course.id) {
+
+    <div
+  appHighlight
+  (click)="viewCourse(course)"
+  style="cursor:pointer">
+
+  <app-course-card
+    [course]="course"
+    (enrollRequested)="onEnroll($event)">
+  </app-course-card>
+
+  <p><b>Credits:</b> {{ course.credits | creditLabel }}</p>
+
+</div>
+
+    <hr>
+
+  }
+
+}

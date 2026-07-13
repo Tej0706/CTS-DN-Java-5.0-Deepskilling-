@@ -1,0 +1,41 @@
+@if(course){
+
+<h2>{{ course.name }}</h2>
+
+<p><b>Code:</b> {{ course.code }}</p>
+
+<p><b>Credits:</b> {{ course.credits }}</p>
+
+<p><b>Status:</b> {{ course.gradeStatus }}</p>
+
+<h3>Enrollments</h3>
+
+@if(students.length){
+
+<ul>
+
+@for(student of students; track student.id){
+
+<li>
+
+Student ID : {{ student.studentId }}
+
+</li>
+
+}
+
+</ul>
+
+}
+@else{
+
+<p>No students enrolled.</p>
+
+}
+
+}
+@else{
+
+<p>Course not found.</p>
+
+}

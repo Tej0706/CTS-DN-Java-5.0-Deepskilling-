@@ -1,0 +1,14 @@
+@if (loadingService.isLoading | async) {
+  <h3 style="color:blue">Loading...</h3>
+}
+
+<router-outlet></router-outlet>
+
+<app-header></app-header>
+
+<app-notification></app-notification>
+
+<hr>
+
+<router-outlet></router-outlet>
+

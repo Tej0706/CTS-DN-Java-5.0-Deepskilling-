@@ -1,0 +1,92 @@
+<h2>Reactive Enrollment Form</h2>
+
+<form [formGroup]="enrollmentForm" (ngSubmit)="enroll()">
+
+  <label>Student Name:</label><br>
+
+  <input type="text" formControlName="studentName">
+
+  @if (enrollmentForm.get('studentName')?.touched &&
+       enrollmentForm.get('studentName')?.invalid) {
+    <div>
+      Student name must be at least 3 characters.
+    </div>
+  }
+
+  <br>
+  <label>Email:</label><br>
+
+<input type="email" formControlName="studentEmail">
+
+@if (enrollmentForm.get('studentEmail')?.pending) {
+  <div>Checking email...</div>
+}
+
+@if (enrollmentForm.get('studentEmail')?.errors?.['required']) {
+  <div>Email is required.</div>
+}
+
+@if (enrollmentForm.get('studentEmail')?.errors?.['email']) {
+  <div>Enter a valid email.</div>
+}
+
+@if (enrollmentForm.get('studentEmail')?.errors?.['emailTaken']) {
+  <div>Email already taken.</div>
+}
+
+<br>
+
+  <label>Course:</label><br>
+
+  <input type="text" formControlName="course">
+
+  @if (enrollmentForm.get('course')?.touched &&
+     enrollmentForm.get('course')?.errors?.['required']) {
+
+  <div>
+    Course is required.
+  </div>
+
+}
+
+@if (enrollmentForm.get('course')?.touched &&
+     enrollmentForm.get('course')?.errors?.['noCourseCode']) {
+
+  <div>
+    Course code starting with XX is not allowed.
+  </div>
+
+}
+
+  <br><br>
+  <h3>Additional Courses</h3>
+
+@for (ctrl of additionalCourses.controls; track $index) {
+
+  <input [formControl]="ctrl">
+
+  <button
+    type="button"
+    (click)="removeCourse($index)">
+    Remove
+  </button>
+
+  <br><br>
+
+}
+
+<button
+  type="button"
+  (click)="addCourse()">
+  Add Another Course
+</button>
+
+<br><br>
+
+  <button
+    type="submit"
+    [disabled]="enrollmentForm.invalid">
+    Enroll
+  </button>
+
+</form>

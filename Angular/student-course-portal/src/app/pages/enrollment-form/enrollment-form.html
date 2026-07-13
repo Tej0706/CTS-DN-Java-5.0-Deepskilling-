@@ -1,0 +1,47 @@
+<h2>Course Enrollment</h2>
+
+<form #form="ngForm">
+
+<label>Student Name:</label><br>
+
+<input
+type="text"
+name="studentName"
+[(ngModel)]="studentName"
+required
+minlength="3"
+#student="ngModel">
+
+<div *ngIf="student.invalid && student.touched">
+  Student name must be at least 3 characters.
+</div>
+
+<br>
+
+<label>Course:</label><br>
+
+<input
+type="text"
+name="course"
+[(ngModel)]="course"
+required
+#courseField="ngModel">
+
+<div *ngIf="courseField.invalid && courseField.touched">
+  Course is required.
+</div>
+
+<br><br>
+
+<button
+(click)="enroll()"
+[disabled]="form.invalid">
+Enroll
+</button>
+
+</form>
+
+<hr>
+
+<p><b>Student:</b> {{studentName}}</p>
+<p><b>Course:</b> {{course}}</p>

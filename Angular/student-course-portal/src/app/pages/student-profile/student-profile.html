@@ -1,0 +1,17 @@
+<h2>Student Profile</h2>
+
+<h3>Enrolled Courses</h3>
+
+@if (enrolledCourses.length > 0) {
+
+  <ul>
+    @for (course of enrolledCourses; track course.id) {
+      <li>{{ course.name }} ({{ course.code }})</li>
+    }
+  </ul>
+
+} @else {
+
+  <p>No courses enrolled yet.</p>
+
+}
