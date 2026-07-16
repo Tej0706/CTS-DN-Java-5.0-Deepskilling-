@@ -36,11 +36,11 @@
     }
   </p>
 
-  <button (click)="toggleEnrollment()">
+  <button (click)="$event.stopPropagation(); toggleEnrollment()">
     {{ isEnrolled() ? 'Unenroll' : 'Enroll' }}
   </button>
 
-  <button (click)="toggleDetails()">
+  <button (click)="$event.stopPropagation(); toggleDetails()">
     {{ isExpanded ? 'Hide Details' : 'Show Details' }}
   </button>
 

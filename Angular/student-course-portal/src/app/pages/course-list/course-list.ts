@@ -8,6 +8,11 @@ import { Highlight } from '../../directives/highlight';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
 import { CourseService } from '../../services/course';
 import { Course } from '../../models/course';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loadCourses } from '../../store/course/course.actions';
+import { selectAllCourses, selectCoursesLoading } from '../../store/course/course.selectors';
+
 
 @Component({
   selector: 'app-course-list',
@@ -24,49 +29,29 @@ import { Course } from '../../models/course';
 })
 export class CourseList implements OnInit {
 
-  courses: Course[] = [];
+  courses$!: Observable<Course[]>;
   selectedCourseId = 0;
   searchTerm = '';
-  isLoading = true;
+  loading$!: Observable<boolean>;
   errorMessage = '';
 
   constructor(
-  private courseService: CourseService,
   private router: Router,
   private route: ActivatedRoute,
-  private cdr: ChangeDetectorRef
+  private cdr: ChangeDetectorRef,
+  private store: Store
 ) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
 
-    this.searchTerm =
-      this.route.snapshot.queryParamMap.get('search') || '';
+  this.searchTerm =
+    this.route.snapshot.queryParamMap.get('search') || '';
 
-   this.courseService.getCourses().subscribe({
+  this.courses$ = this.store.select(selectAllCourses);
+  this.loading$ = this.store.select(selectCoursesLoading);
+  this.store.dispatch(loadCourses());
 
-  next: (courses) => {
-
-    setTimeout(() => {
-
-      this.courses = courses;
-      this.isLoading = false;
-      this.cdr.detectChanges();
-
-    }, 1500);
-
-  },
-
-  error: (err) => {
-
-    this.errorMessage = err.message;
-    this.isLoading = false;
-    this.cdr.detectChanges();
-
-  }
-
-});
-
-  }
+}
 
   onEnroll(courseId: number) {
     this.selectedCourseId = courseId;

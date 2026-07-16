@@ -12,13 +12,13 @@
   <p style="color:red">{{ errorMessage }}</p>
 }
 
-@if (isLoading) {
+@if (loading$ | async) {
 
   <p>Loading courses...</p>
 
 } @else {
 
-  @for (course of courses; track course.id) {
+  @for (course of (courses$ | async) ?? []; track course.id) {
 
     <div
   appHighlight

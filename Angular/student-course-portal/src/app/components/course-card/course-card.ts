@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 import { EnrollmentService } from '../../services/enrollment';
 import { Course } from '../../models/course';
+import { Store } from '@ngrx/store';
+import { enrollInCourse, unenrollFromCourse } from '../../store/enrollment/enrollment.actions';
+
 
 @Component({
   selector: 'app-course-card',
@@ -18,7 +21,10 @@ export class CourseCard implements OnChanges {
 
   isExpanded = false;
 
-  constructor(private enrollmentService: EnrollmentService) {}
+  constructor(
+  private enrollmentService: EnrollmentService,
+  private store: Store
+) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('Previous Value:', changes['course']?.previousValue);
@@ -26,14 +32,28 @@ export class CourseCard implements OnChanges {
   }
 
   toggleEnrollment() {
-    this.enrollRequested.emit(this.course.id);
 
-    if (this.enrollmentService.isEnrolled(this.course.id)) {
-      this.enrollmentService.unenroll(this.course.id);
-    } else {
-      this.enrollmentService.enroll(this.course.id);
-    }
+  this.enrollRequested.emit(this.course.id);
+
+  if (this.enrollmentService.isEnrolled(this.course.id)) {
+
+    this.enrollmentService.unenroll(this.course.id);
+
+    this.store.dispatch(
+      unenrollFromCourse({ courseId: this.course.id })
+    );
+
+  } else {
+
+    this.enrollmentService.enroll(this.course.id);
+
+    this.store.dispatch(
+      enrollInCourse({ courseId: this.course.id })
+    );
+
   }
+
+}
 
   isEnrolled(): boolean {
     return this.enrollmentService.isEnrolled(this.course.id);

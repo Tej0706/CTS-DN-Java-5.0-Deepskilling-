@@ -1,76 +1,84 @@
 {
   "courses": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Java Programming",
       "code": "CS101",
       "credits": 4,
       "gradeStatus": "passed"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Angular",
       "code": "CS102",
       "credits": 3,
       "gradeStatus": "pending"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Database Management",
       "code": "CS103",
       "credits": 4,
       "gradeStatus": "passed"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Cloud Computing",
       "code": "CS104",
       "credits": 3,
       "gradeStatus": "failed"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Cyber Security",
       "code": "CS105",
       "credits": 4,
       "gradeStatus": "pending"
+    },
+    {
+      "name": "Artificial Intelligence",
+      "code": "CS106",
+      "credits": 3,
+      "gradeStatus": "pending",
+      "id": "YolYooP1N8g"
     }
   ],
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Tejaswini"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Rahul"
     }
   ],
   "enrollments": [
-  {
-    "id": 1,
-    "studentId": 1,
-    "courseId": 1
-  },
-  {
-    "id": 2,
-    "studentId": 2,
-    "courseId": 2
-  },
-  {
-    "id": 3,
-    "studentId": 1,
-    "courseId": 3
-  },
-  {
-    "id": 4,
-    "studentId": 2,
-    "courseId": 4
-  },
-  {
-    "id": 5,
-    "studentId": 1,
-    "courseId": 5
-  }
-]
+    {
+      "id": "1",
+      "studentId": 1,
+      "courseId": 1
+    },
+    {
+      "id": "2",
+      "studentId": 2,
+      "courseId": 2
+    },
+    {
+      "id": "3",
+      "studentId": 1,
+      "courseId": 3
+    },
+    {
+      "id": "4",
+      "studentId": 2,
+      "courseId": 4
+    },
+    {
+      "id": "5",
+      "studentId": 1,
+      "courseId": 5
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
